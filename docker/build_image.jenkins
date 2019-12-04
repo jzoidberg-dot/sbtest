@@ -6,7 +6,8 @@ pipeline {
     agent { 
         label 'ja1'
         }
-    options {
+    triggers { pollSCM('* * * * *') }
+	options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
