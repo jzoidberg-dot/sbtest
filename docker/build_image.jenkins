@@ -12,11 +12,38 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("create docker image") {
+        stage("docker login") {
+			steps{
+				withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWROD')]) {
+					sh """
+					docker login -u $USERNAME -p $PASSWROD
+					"""
+				}
+			}
+		}
+		stage("create docker image") {
             steps {
                 echo " ========== start building ========== "
 				dir ('docker/docker-flask') {
-					sh 'docker build -t zoid/sbtest:flask-auto .'
+					sh 'docker build -t zoid/sbtest:flask .'
+				}
+            }
+        }
+		stage("Run and test image") {
+            steps {
+                echo " ========== running and testing ========== "
+				sh """
+				docker run --rm --network host -d --name flask zoid/sbtest:flask
+				docker exec flask /start.sh
+				"""
+				}
+            }
+		stage("docker push") {
+            steps {
+                echo " ========== pushing image ========== "
+				sh """
+				docker push zoid/sbtest:flask
+				"""
 				}
             }
         }
