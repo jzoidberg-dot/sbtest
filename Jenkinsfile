@@ -1,10 +1,24 @@
-Jenkinsfile (Declarative Pipeline)
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])
+
 pipeline {
-    agent { docker { image '7a7f7ba53177' } }
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
     stages {
-        stage('build') {
+        stage("First step") {
             steps {
-                sh 'python --version'
+                sh 'ssh jenkins@172.17.0.4 \'hostname\''
+            }
+        }
+        stage("Second step") {
+            steps {
+                sh 'ssh jenkins@172.17.0.4 \'uptime\''
             }
         }
     }
