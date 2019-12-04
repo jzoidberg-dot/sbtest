@@ -9,4 +9,4 @@ ENV LC_ALL=en_US.utf8
 ENV LANG=en_US.utf8
 ENV PORT=5000
 RUN FLASK_APP=/workstest/js_example 
-CMD ["flask", "run", "--port=$PORT"]
+CMD flask run --port=$PORT
