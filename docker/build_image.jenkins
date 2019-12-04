@@ -12,15 +12,7 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("docker login") {
-			steps{
-				withCredentials([usernamePassword(credentialsId: '07ee24b9-cc41-48e2-a7a6-975d266bac7e', usernameVariable: 'USERNAME', passwordVariable: 'PASSWROD')]) {
-					sh """
-					docker login -u $USERNAME -p $PASSWROD
-					"""
-				}
-			}
-		}
+        
 		stage("create docker image") {
             steps {
                 echo " ========== start building ========== "
@@ -42,7 +34,9 @@ pipeline {
 		stage("docker push") {
             steps {
                 echo " ========== pushing image ========== "
+				withCredentials([usernamePassword(credentialsId: '07ee24b9-cc41-48e2-a7a6-975d266bac7e', usernameVariable: 'USERNAME', passwordVariable: 'PASSWROD')]) {
 				sh """
+				docker login -u $USERNAME -p $PASSWROD
 				docker push zoid/sbtest:flask-auto
 				"""
 				}
