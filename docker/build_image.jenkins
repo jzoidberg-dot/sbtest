@@ -35,10 +35,8 @@ pipeline {
             steps {
                 echo " ========== pushing image ========== "
 				withCredentials([usernamePassword(credentialsId: 'dockerhub',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-				sh """
-				docker login -u zoid -p $PASSWORD
-				docker push zoid/sbtest:flask-auto
-				"""
+				sh 'docker login -u$USERNAME -p$PASSWORD'
+				sh 'docker push zoid/sbtest:flask-auto'
 				}
             }
         }
