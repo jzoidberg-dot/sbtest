@@ -4,7 +4,7 @@ properties([disableConcurrentBuilds()])
 
 pipeline {
     environment {
-    registry = "zoid/sbtest"
+    registry = "zoid/test"
     registryCredential = "dockerhub"
 	dockerImage = ''
 	}
