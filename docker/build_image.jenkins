@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo " ========== start building ========== "
 				dir ('docker/docker-flask') {
-					sh 'docker build -t zoid/sbtest:flask .'
+					sh 'docker build -t zoid/sbtest:flask-auto . ' 
 				}
             }
         }
@@ -33,8 +33,9 @@ pipeline {
             steps {
                 echo " ========== running and testing ========== "
 				sh """
-				docker run --rm --network host -d --name flask zoid/sbtest:flask
+				docker run --rm --network host -d --name flask zoid/sbtest:flask-auto
 				docker exec flask /test.sh
+				docker stop flask
 				"""
 				}
             }
@@ -42,7 +43,7 @@ pipeline {
             steps {
                 echo " ========== pushing image ========== "
 				sh """
-				docker push zoid/sbtest:flask
+				docker push zoid/sbtest:flask-auto
 				"""
 				}
             }
