@@ -34,7 +34,7 @@ pipeline {
                 echo " ========== running and testing ========== "
 				sh """
 				docker run --rm --network host -d --name flask zoid/sbtest:flask
-				docker exec flask /start.sh
+				docker exec flask /test.sh
 				"""
 				}
             }
