@@ -1,5 +1,5 @@
 FROM centos:7
-RUN yum install python3 ansible openssh openssh-server.x86_64 java git -y
+RUN yum install python3 ansible openssh openssh-server.x86_64 java git docker -y
 EXPOSE 22
 RUN ssh-keygen -A
 RUN useradd jenkins && \
