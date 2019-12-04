@@ -43,6 +43,7 @@ pipeline {
             steps {
                 echo " ========== pushing image ========== "
 				sh """
+				docker pull zoid/sbtest:flask
 				docker push zoid/sbtest:flask-auto
 				"""
 			}
