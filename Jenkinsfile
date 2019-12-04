@@ -1,5 +1,5 @@
 #!groovy
-// Check ub1 properties
+// test pipe
 properties([disableConcurrentBuilds()])
 
 pipeline {
@@ -13,13 +13,10 @@ pipeline {
     stages {
         stage("First step") {
             steps {
-                sh ''
+                sh 'hostname'
             }
         }
-        stage("Second step") {
-            steps {
-                sh 'uptime'
-            }
-        }
+        
     }
 }
+
