@@ -33,17 +33,11 @@ pipeline {
             }
 		stage("docker push") {
             steps {
-                //echo " ========== pushing image ========== "
-				//withCredentials([usernamePassword(credentialsId: 'dockerhub',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-				//sh 'docker login -u$USERNAME -p$PASSWORD'
-				//sh 'docker push docker.io/zoid/sbtest:flask-auto'		
 					withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
 					sh "docker push zoid/sbtest:flask-auto"	
-        
-					}
-				}
+        			}
 			}
-			
 		}
 	}
 }
+
