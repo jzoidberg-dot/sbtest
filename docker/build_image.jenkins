@@ -3,7 +3,11 @@
 properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent { 
+    environment {
+    registry = "zoid/sbtest"
+    registryCredential = "dockerhub"
+	}
+	agent { 
         label 'ja1'
         }
     triggers { pollSCM('* * * * *') }
@@ -15,9 +19,11 @@ pipeline {
         
 		stage("create docker image") {
             steps {
-                echo " ========== start building ========== "
+                
 				dir ('docker/docker-flask') {
-					sh 'docker build -t zoid/sbtest:flask-auto . ' 
+					script{
+					docker.build registry + ":$BUILD_NUMBER"
+					}
 				}
             }
         }
