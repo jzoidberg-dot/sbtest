@@ -9,4 +9,5 @@ mkdir /home/jenkins/ansible && \
 chown jenkins. /home/jenkins/ansible
 COPY authorized_keys /home/jenkins/.ssh/
 RUN chown jenkins. /home/jenkins/.ssh/authorized_keys
+RUN echo "123"
 CMD /usr/sbin/sshd -D -f /etc/ssh/sshd_config
