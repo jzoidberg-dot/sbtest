@@ -1,11 +1,22 @@
-Jenkinsfile (Declarative Pipeline)
+#!groovy
+// test pipe
+properties([disableConcurrentBuilds()])
+
 pipeline {
-    agent { docker { image '7a7f7ba53177' } }
+    agent { 
+        label 'ja1'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
     stages {
-        stage('build') {
+        stage("First step") {
             steps {
-                sh 'python --version'
+                sh 'hostname'
             }
         }
+        
     }
 }
+
