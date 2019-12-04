@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo " ========== running and testing ========== "
 				sh """
-				docker run --rm --network host -d --name flask zoid/sbtest:flask-auto
+				docker run --rm --network host -d --name flask-auto zoid/sbtest:flask-auto
 				docker exec flask /test.sh
 				docker stop flask-auto
 				"""
