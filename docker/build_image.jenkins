@@ -44,9 +44,7 @@ pipeline {
 				sh """
 				docker push zoid/sbtest:flask-auto
 				"""
-				}
-            }
+			}
         }
-        
-    }
+    }       
 }
