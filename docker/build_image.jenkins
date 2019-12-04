@@ -39,11 +39,12 @@ pipeline {
             }
 		stage("docker push") {
             steps {
-					withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
-					sh "docker push zoid/sbtest:flask-auto"	
-        			}
+				script{
+					docker.withRegistry( '', registryCredential ) {
+						dockerImage.push()
+					}
+				}			
 			}
 		}
 	}
 }
-
