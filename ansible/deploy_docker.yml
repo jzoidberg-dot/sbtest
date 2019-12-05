@@ -1,0 +1,29 @@
+---
+
+- hosts: 127.0.0.1
+  connection: local
+  environment:
+    PYTHONPATH: "{{ lookup('env','PYTHONPATH') }}:/usr/local/lib/python2.7/dist-packages:/usr/local/lib/python3.6/site-packages"
+
+  tasks:
+  - name: pull container
+    docker_image:
+      name: zoid/sbtest:flask
+  - name: Start containers
+    docker_container:
+      name: "{{ item.name }}"
+      recreate: yes
+      image: zoid/sbtest:flask
+      cleanup: yes
+      env:
+        PORT: "{{ item.port }}"
+    with_items:
+       - { name: 'flask0', port: '5000' }
+       - { name: 'flask1', port: '5001' }
+       - { name: 'flask2', port: '5002' }
+  - name: pull and execute njinx
+    docker_container:
+      name: "nginx"
+      recreate: yes
+      state: started
+      image: nginx:latest
