@@ -6,9 +6,6 @@
     PYTHONPATH: "{{ lookup('env','PYTHONPATH') }}:/usr/local/lib/python2.7/dist-packages:/usr/local/lib/python3.6/site-packages"
 
   tasks:
-  - name: pull container
-    docker_image:
-      name: zoid/sbtest:flask
   - name: Start containers
     docker_container:
       name: "{{ item.name }}"
