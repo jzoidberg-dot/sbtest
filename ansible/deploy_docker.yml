@@ -5,10 +5,12 @@
   environment:
     PYTHONPATH: "{{ lookup('env','PYTHONPATH') }}:/usr/local/lib/python2.7/dist-packages:/usr/local/lib/python3.6/site-packages"
 
+
   tasks:
   - name: Start containers
     docker_container:
       name: "{{ item.name }}"
+      network_mode: host
       recreate: yes
       image: zoid/sbtest:flask
       cleanup: yes
@@ -22,5 +24,6 @@
     docker_container:
       name: "nginx"
       recreate: yes
+      network_mode: host
       state: started
       image: nginx:latest
