@@ -45,7 +45,7 @@ pipeline {
                     echo " ========== pushing image ========== "
                     sh """
                     docker login -u $USERNAME -p $PASSWORD
-                    ansible-playbook /home/jenkins/docker_push.yml
+                    docker push zoid/sbtest:flask-auto
                     """
                 }
 			}
