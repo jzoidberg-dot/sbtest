@@ -20,6 +20,17 @@
        - { name: 'flask0', port: '5000' }
        - { name: 'flask1', port: '5001' }
        - { name: 'flask2', port: '5002' }
+  
+  - name: Template a file 
+    template:
+      src: nginx.conf
+      dest: /nginx.conf
+    with_items:
+      - 5000
+      - 5001
+      - 5002
+
+
   - name: pull and execute njinx
     docker_container:
       name: "nginx"
@@ -27,3 +38,5 @@
       network_mode: host
       state: started
       image: nginx:latest
+      volumes:
+       - /nginx.conf:/etc/nginx/nginx.conf:ro

@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('docker/docker-flask') {
-                	sh 'docker build -t zoid/test:latest . '
+                	sh 'docker build -t zoid/test:flask-auto . '
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push szoid/test:latest
+                ansible-playbook /home/jenkins/docker_push.yml
                 '''
             }
         }
