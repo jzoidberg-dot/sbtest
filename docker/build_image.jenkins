@@ -33,9 +33,10 @@ pipeline {
             steps {
                 echo " ========== running and testing ========== "
 				sh '''
-				docker run --rm --network host -d --name flask-auto zoid/sbtest:flask-auto
+				
+                docker run --rm --network host -d --name flask-auto zoid/sbtest:flask-auto
 				docker exec flask-auto /test.sh | grep "[100%]"
-                //if  [ '$(?)' != '0' ]; then echo "webapp tests failed" && docker stop flask-auto && exit 1; fi
+                if  [ '$(?)' != '0' ]; then echo "webapp tests failed" && docker stop flask-auto && exit 1; fi
                 docker stop flask-auto
 				'''
 				}
