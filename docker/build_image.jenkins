@@ -12,15 +12,7 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("docker login") {
-			steps{
-				withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-					sh """
-					docker login -u $USERNAME -p $PASSWORD
-					"""
-				}
-			}
-		}
+        
 		stage("create docker image") {
             steps {
                 echo " ========== start building ========== "
@@ -29,7 +21,8 @@ pipeline {
 				}
             }
         }
-		stage("Run and test image") {
+		
+        stage("Run and test image") {
             steps {
                 echo " ========== running and testing ========== "
 				sh '''
@@ -41,7 +34,8 @@ pipeline {
 				'''
 				}
             }
-		stage("docker push") {
+		
+        stage("docker push") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     echo " ========== pushing image ========== "
