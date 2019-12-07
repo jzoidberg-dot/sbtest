@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo " ========== start building ========== "
 				dir ('docker/docker-flask') {
-					sh 'docker build -t zoid/sbtest:flask-auto .'
+					sh 'docker build -t zoid/sbtest:flask .'
 				}
             }
         }
@@ -27,10 +27,10 @@ pipeline {
                 echo " ========== running and testing ========== "
 				sh '''
 				
-                docker run --rm --network host -d --name flask-auto zoid/sbtest:flask-auto
-				docker exec flask-auto /test.sh | grep "[100%]"
-                if  [ "${?}" != "0" ]; then echo "webapp tests failed" && docker stop flask-auto && exit 1; fi
-                docker stop flask-auto
+                docker run --rm --network host -d --name flask zoid/sbtest:flask
+				docker exec flask /test.sh | grep "[100%]"
+                if  [ "${?}" != "0" ]; then echo "webapp tests failed" && docker stop flask && exit 1; fi
+                docker stop flask
 				'''
 				}
             }
@@ -41,7 +41,7 @@ pipeline {
                     echo " ========== pushing image ========== "
                     sh """
                     docker login -u $USERNAME -p $PASSWORD
-                    docker push zoid/sbtest:flask-auto
+                    docker push zoid/sbtest:flask
                     """
                 }
 			}
