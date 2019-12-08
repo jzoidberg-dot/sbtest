@@ -9,4 +9,6 @@ echo "######################"
 echo 'Please, enter jenkins-server container and execute command:  '
 echo "ssh-keyscan -H $ip > /var/jenkins_home/.ssh/known_hosts"
 echo "Set IP address to $ip in jenkins > Nodes > ja1 in web interface setting"
+echo "As the final result after all CI/CD process there will be a web app "
+echo "with ip address of host machine where docker is runnins on default 80 port"
 echo "######################"
