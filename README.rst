@@ -1,5 +1,5 @@
 - Для запуска и установки лабораторной нужно скачать prepare.sh и запустить на машине с установленным докером
-- wget https://github.com/jzoidberg-dot/sbtest/blob/master/prepare.sh
+- wget https://raw.githubusercontent.com/jzoidberg-dot/sbtest/master/prepare.sh
 - После того как скрипт все установил нужно:
 - поменять группу файла /var/run/docker.sock на docker
 -  убедиться в том, что GID группы docker  в контейнере ja1 такой же как и на хостовой машине. Если нет - поменять GID в контейнере на то значение, которое у хостовой машины
